@@ -1,5 +1,5 @@
 We Deliver: A Delivery Company Tracking System
-Welcome to We Deliver, a comprehensive system designed to help the delivery company We Deliver efficiently manage its drivers and the cities they deliver to. This program allows the company to keep track of its drivers, their unique worker IDs, names, and starting cities, as well as the cities within the delivery network and the connections between them.
+Welcome to We Deliver, a comprehensive system designed with python language to help the delivery company We Deliver efficiently manage its drivers and the cities they deliver to. This program allows the company to keep track of its drivers, their unique worker IDs, names, and starting cities, as well as the cities within the delivery network and the connections between them.
 
 Features
 Main Menu
