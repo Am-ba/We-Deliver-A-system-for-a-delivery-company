@@ -10,7 +10,7 @@ class WeDeliverSystem:
         self.driver_id_counter = 6  # Next ID will be ID006
 
         self.cities = {
-            "Beirut": ["Tripoli", "Saida", "Byblos"],
+            "Beirut": ["Saida", "Byblos"],
             "Tripoli": ["Beirut", "Jounieh"],
             "Saida": ["Beirut", "Tyre"],
             "Zahle": ["Baakleen", "Baalbek"],
