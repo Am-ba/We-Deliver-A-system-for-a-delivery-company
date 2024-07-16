@@ -1,9 +1,27 @@
 class WeDeliverSystem:
     #constructor
-    def __init__(self):
-        self.drivers = {}
-        self.cities = {}
-        self.driver_id_counter = 1
+      def __init__(self):
+        self.drivers = {
+            "ID001": {"name": "Max Verstappen", "start_city": "Beirut"},
+            "ID002": {"name": "Charles Leclerc", "start_city": "Tripoli"},
+            "ID003": {"name": "Lando Norris", "start_city": "Saida"},
+            "ID004": {"name": "Lewis Hamilton", "start_city": "Zahle"},
+            "ID005": {"name": "Sebastian Vettel", "start_city": "Byblos"},
+        }
+        self.driver_id_counter = 6  # Next ID will be ID006
+
+        self.cities = {
+            "Beirut": ["Tripoli", "Saida", "Byblos"],
+            "Tripoli": ["Beirut", "Jounieh"],
+            "Saida": ["Beirut", "Tyre"],
+            "Zahle": ["Baakleen", "Baalbek"],
+            "Byblos": ["Beirut", "Batroun"],
+            "Jounieh": ["Tripoli", "Batroun"],
+            "Tyre": ["Saida", "Naqoura"],
+            "Baalbek": ["Zahle", "Hermel"],
+            "Batroun": ["Byblos", "Jounieh"],
+            "Naqoura": ["Tyre"]
+        }
     #Main menu
     def main_menu(self):
         while True:
