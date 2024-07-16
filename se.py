@@ -1,6 +1,6 @@
 class WeDeliverSystem:
     #constructor
-      def __init__(self):
+    def __init__(self):
         self.drivers = {
             "ID001": {"name": "Max Verstappen", "start_city": "Beirut"},
             "ID002": {"name": "Charles Leclerc", "start_city": "Tripoli"},
@@ -56,6 +56,12 @@ class WeDeliverSystem:
             else:
                 print("Invalid choice. Please try again.")
     #View all driver function
+    def view_all_drivers(self):
+        if not self.drivers:
+            print("No drivers available.")
+        else:
+            for driver_id, driver_info in self.drivers.items():
+                print(f"{driver_id}, {driver_info['name']}, {driver_info['start_city']}")
     #add driver function
     #city menu
     def cities_menu(self):
