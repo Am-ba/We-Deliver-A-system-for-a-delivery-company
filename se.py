@@ -1,152 +1,47 @@
-class WeDeliverSystem:
-    def __init__(self):
-        self.drivers = {
-            "ID001": {"name": "Max Verstappen", "start_city": "Beirut"},
-            "ID002": {"name": "Charles Leclerc", "start_city": "Tripoli"},
-            "ID003": {"name": "Lando Norris", "start_city": "Saida"},
-            "ID004": {"name": "Lewis Hamilton", "start_city": "Zahle"},
-            "ID005": {"name": "Sebastian Vettel", "start_city": "Byblos"},
-        }
-        self.driver_id_counter = 6  # Next ID will be ID006
+# Main Menu
+# Display the welcome message
+# Prompt the user to enter:
+# 1. For the drivers' menu
+# 2. For the cities' menu
+# 3. To exit the system
 
-        self.cities = {
-            "Beirut": ["Saida", "Byblos"],
-            "Tripoli": ["Beirut", "Jounieh"],
-            "Saida": ["Beirut", "Tyre"],
-            "Zahle": ["Baakleen", "Baalbek"],
-            "Byblos": ["Beirut", "Batroun"],
-            "Jounieh": ["Tripoli", "Batroun"],
-            "Tyre": ["Saida", "Naqoura"],
-            "Baalbek": ["Zahle", "Hermel"],
-            "Batroun": ["Byblos", "Jounieh"],
-            "Naqoura": ["Tyre"]
-        }
+# If user selects option 1, go to Drivers' Menu
+# If user selects option 2, go to Cities' Menu
+# If user selects option 3, exit the system
 
-    def main_menu(self):
-        while True:
-            print("Hello! Please enter:")
-            print("1. To go to the drivers' menu")
-            print("2. To go to the cities' menu")
-            print("3. To exit the system")
-            choice = input("Enter your choice: ")
-            if choice == '1':
-                self.drivers_menu()
-            elif choice == '2':
-                self.cities_menu()
-            elif choice == '3':
-                print("Exiting the system. Goodbye!")
-                break
-            else:
-                print("Invalid choice. Please try again.")
+# Drivers' Menu
+# Display the drivers' menu options
+# Prompt the user to enter:
+# 1. To view all the drivers
+# 2. To add a driver
+# 3. To go back to the main menu
 
-    def drivers_menu(self):
-        while True:
-            print("\nDrivers' Menu:")
-            print("1. To view all the drivers")
-            print("2. To add a driver")
-            print("3. To go back to main menu")
-            choice = input("Enter your choice: ")
-            if choice == '1':
-                self.view_all_drivers()
-            elif choice == '2':
-                self.add_driver()
-            elif choice == '3':
-                break
-            else:
-                print("Invalid choice. Please try again.")
+# If user selects option 1, display all drivers and their details
+# If user selects option 2, prompt the user to enter the name and start city of the driver
+#    - Validate if the start city is in the database
+#    - If not, ask the user if they want to add it to the database
+#    - Generate a unique worker ID for the new driver and save the details
+# If user selects option 3, return to the main menu
 
-    def cities_menu(self):
-        while True:
-            print("\nCities' Menu:")
-            print("1. Show cities")
-            print("2. Print neighboring cities")
-            print("3. Print drivers delivering to city")
-            print("4. To go back to main menu")
-            choice = input("Enter your choice: ")
-            if choice == '1':
-                self.show_cities()
-            elif choice == '2':
-                self.print_neighboring_cities()
-            elif choice == '3':
-                self.print_drivers_delivering_to_city()
-            elif choice == '4':
-                break
-            else:
-                print("Invalid choice. Please try again.")
+# Cities' Menu
+# Display the cities' menu options
+# Prompt the user to enter:
+# 1. To show all cities
+# 2. To print neighboring cities
+# 3. To print drivers delivering to a city
 
-    def view_all_drivers(self):
-        if not self.drivers:
-            print("No drivers available.")
-        else:
-            for driver_id, driver_info in self.drivers.items():
-                print(f"{driver_id}, {driver_info['name']}, {driver_info['start_city']}")
+# If user selects option 1, display the list of all cities
+# If user selects option 2, prompt the user to enter a city name
+#    - Display all cities that can be reached from the entered city
+# If user selects option 3, prompt the user to enter a city name
+#    - Display all drivers that are delivering to the entered city
 
-    def add_driver(self):
-        name = input("Enter the name of the driver: ")
-        start_city = input("Enter the start city of the driver: ")
-        if start_city not in self.cities:
-            add_city = input(f"{start_city} is not in the database. Do you want to add it? (yes/no): ")
-            if add_city.lower() == 'yes':
-                self.cities[start_city] = []
-            else:
-                print("Driver not added.")
-                return
-        driver_id = f"ID{self.driver_id_counter:03}"
-        self.drivers[driver_id] = {'name': name, 'start_city': start_city}
-        self.driver_id_counter += 1
-        print(f"Driver {name} added with ID {driver_id}.")
-
-    def show_cities(self):
-        if not self.cities:
-            print("No cities available.")
-        else:
-            for city in self.cities:
-                print(city)
-
-    def print_neighboring_cities(self):
-        city = input("Enter the city name: ")
-        if city in self.cities:
-            neighbors = self.cities[city]
-            if not neighbors:
-                print(f"No neighboring cities for {city}.")
-            else:
-                for neighbor in neighbors:
-                    print(neighbor)
-        else:
-            print(f"{city} is not in the database.")
-
-    def print_drivers_delivering_to_city(self):
-        city = input("Enter the city name: ")
-        if city in self.cities:
-            delivering_drivers = []
-            for driver_id, driver_info in self.drivers.items():
-                if self.can_reach_city(driver_info['start_city'], city):
-                    delivering_drivers.append(driver_info['name'])
-            if not delivering_drivers:
-                print(f"No drivers can deliver to {city}.")
-            else:
-                for driver in delivering_drivers:
-                    print(driver)
-        else:
-            print(f"{city} is not in the database.")
-
-    def can_reach_city(self, start, destination):
-        visited = set()
-        return self.bfs(start, destination, visited)
-
-    def bfs(self, start, destination, visited):
-        from collections import deque
-        queue = deque([start])
-        while queue:
-            current = queue.popleft()
-            if current == destination:
-                return True
-            visited.add(current)
-            for neighbor in self.cities.get(current, []):
-                if neighbor not in visited:
-                    queue.append(neighbor)
-        return False
-
-if __name__ == "__main__":
-    system = WeDeliverSystem()
-    system.main_menu()
+# Helper Functions
+# Create a function to generate a unique worker ID
+# Create a function to validate if a city is in the database
+# Create a function to add a new city to the database
+# Create a function to add a new driver to the database
+# Create a function to display all drivers
+# Create a function to display all cities
+# Create a function to find neighboring cities using BFS or DFS
+# Create a function to find drivers delivering to a specific city
