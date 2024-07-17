@@ -63,6 +63,30 @@ class WeDeliverSystem:
             for driver_id, driver_info in self.drivers.items():
                 print(f"{driver_id}, {driver_info['name']}, {driver_info['start_city']}")
     #add driver function
+    def add_driver(self):
+     name = input("Enter the driver's name: ")
+    
+    # Ensure the start city exists or add it
+     while True:
+        start_city = input("Enter the driver's start city: ")
+        if start_city in self.cities:
+            break
+        else:
+            add_city_choice = input("City not found. Do you want to add it to the database? (yes/no): ")
+            if add_city_choice.lower() == 'yes':
+                self.add_city(start_city)
+                break
+            elif add_city_choice.lower() == 'no':
+                print("Please enter an existing city or add a new city.")
+            else:
+                print("Invalid choice. Please enter 'yes' or 'no'.")
+
+    # Generate a unique driver ID
+     driver_id = f"ID{self.driver_id_counter:03}"
+     self.drivers[driver_id] = {"name": name, "start_city": start_city}
+     self.driver_id_counter += 1
+     print(f"Driver {name} added with ID {driver_id}.")
+
     #city menu
     def cities_menu(self):
         while True:
