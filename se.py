@@ -126,4 +126,20 @@ class WeDeliverSystem:
         else:
             print(f"{city} is not in the database.")
 
-        #orint driver delivering to city
+        #orint driver delivering to citydef print_drivers_delivering_to_city(self):
+        city = input("Enter the city name: ")
+        if city not in self.cities:
+            print("City not found in the database.")
+            return
+        
+        delivering_drivers = []
+        for driver_id, driver_info in self.drivers.items():
+            if city == driver_info['start_city'] or city in self.cities[driver_info['start_city']]:
+                delivering_drivers.append(f"{driver_id}, {driver_info['name']}, {driver_info['start_city']}")
+
+        if not delivering_drivers:
+            print(f"No drivers found delivering to {city}.")
+        else:
+            print(f"Drivers delivering to {city}:")
+            for driver in delivering_drivers:
+                print(driver)
