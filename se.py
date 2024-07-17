@@ -107,11 +107,23 @@ class WeDeliverSystem:
             else:
                 print("Invalid choice. Please try again.")
         #show cities function
-        def show_cities(self):
+    def show_cities(self):
          if not self.cities:
             print("No cities available.")
          else:
             for city in self.cities:
                 print(city)
-        #print neighboring cities function
+     #print neighboring cities function
+    def print_neighboring_cities(self):
+        city = input("Enter the city name: ")
+        if city in self.cities:
+            neighbors = self.cities[city]
+            if not neighbors:
+                print(f"No neighboring cities for {city}.")
+            else:
+                for neighbor in neighbors:
+                    print(neighbor)
+        else:
+            print(f"{city} is not in the database.")
+
         #orint driver delivering to city
