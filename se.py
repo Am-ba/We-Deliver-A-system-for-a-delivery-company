@@ -54,7 +54,7 @@ class WeDeliverSystem:
             elif choice == '2':
                 self.add_driver()
             elif choice == '3':
-                break
+                self.main_menu()
             else:
                 print("Invalid choice. Please try again.")
 
@@ -107,7 +107,7 @@ class WeDeliverSystem:
             elif choice == '3':
                 self.print_drivers_delivering_to_city()
             elif choice == '4':
-                break
+                self.main_menu()
             else:
                 print("Invalid choice. Please try again.")
 
